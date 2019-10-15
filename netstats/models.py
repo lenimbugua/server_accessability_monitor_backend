@@ -15,3 +15,12 @@ class Stats(models.Model):
 
     class Meta:
         ordering = ['created']
+
+
+class FilePath(models.Model):
+    created = models.DateField(auto_now_add=True)
+    connection_name = models.CharField(max_length=100)
+    file_path = models.CharField(max_length=100)
+
+    class Meta:
+        ordering = ['created']
