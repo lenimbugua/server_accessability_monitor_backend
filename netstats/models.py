@@ -21,6 +21,7 @@ class FilePath(models.Model):
     created = models.DateField(auto_now_add=True)
     connection_name = models.CharField(max_length=100)
     file_path = models.CharField(max_length=100)
+    ip_address = models.CharField(max_length=100)
 
     class Meta:
         ordering = ['created']
