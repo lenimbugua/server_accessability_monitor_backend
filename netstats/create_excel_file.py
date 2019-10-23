@@ -1,8 +1,10 @@
 import xlwt
 from xlwt import Workbook
+from django.conf import settings
 
 
 def write_into_file(data, unique_name, connection_name):
+    file_path = settings.FILES_DIR
     workbook = xlwt.Workbook()
 
     sheet = workbook.add_sheet("{} connection".format(connection_name))
@@ -11,7 +13,6 @@ def write_into_file(data, unique_name, connection_name):
     style = xlwt.easyxf('font: bold 1')
 
     # Specifying column names
-
     sheet.write(0, 0, 'Connection Name', style)
     sheet.write(0, 1, 'Ip_address', style)
     sheet.write(0, 2, 'Packet Transmitted', style)
@@ -30,4 +31,5 @@ def write_into_file(data, unique_name, connection_name):
                 y = 0
                 break
 
-    workbook.save("{}.xlsx".format(unique_name))
+    workbook.save(
+        "{}/{}.xlsx".format(file_path, unique_name))

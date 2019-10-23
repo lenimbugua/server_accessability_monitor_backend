@@ -1,11 +1,13 @@
 # Reading an excel file
 import xlrd
+from django.conf import settings
 
 
-def read_file():
+def read_file(uuid):
     # Give the location of the file
-    # Todo: parametrize file path
-    loc = ("92b44a8f-bfda-4ff7-b44f-0fd21bb7aead.xlsx")
+    file_path = settings.FILES_DIR
+    print("FIILLEE".format(settings.FILES_DIR))
+    loc = ("{}/{}.xlsx".format(file_path, uuid))
 
     # To open Workbook
     wb = xlrd.open_workbook(loc)

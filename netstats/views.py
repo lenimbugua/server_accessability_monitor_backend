@@ -27,10 +27,14 @@ class StatsList(generics.ListCreateAPIView):
                 packets, ip_address)
         else:
             return Response("", status=status.HTTP_417_EXPECTATION_FAILED)
+        try:
+            packet_loss = ((packets_transmitted-packets_received) /
+                           packets_transmitted) * 100
+        except ZeroDivisionError:
+            packet_loss = "No packet was transmitted"
 
         queryset = self.get_queryset()
-        packet_loss = ((packets_transmitted-packets_received) /
-                       packets_transmitted) * 100
+
         data = {
             "connection_name": connection_name,
             "ip_address": ip_address,
@@ -52,13 +56,6 @@ class StatsList(generics.ListCreateAPIView):
             return Response(file_path_serializer.data, status=status.HTTP_201_CREATED)
         return Response(file_path_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        # serializer = StatsSerializer(data=data)
-
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class StatsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Stats.objects.all()
@@ -71,10 +68,7 @@ class FilePathList(generics.ListCreateAPIView):
 
 
 class FileDetail(generics.RetrieveAPIView):
-    lookup_url_kwarg = "uuid"
 
     def retrieve(self, request, *args, **kwargs):
-        print("REQUEST {}".format(kwargs))
-        return Response(read_file())
-    # def create(self, request, format=None):
-    #     request_data = request.data
+        uuid = self.kwargs['uuid']
+        return Response(read_file(uuid))
