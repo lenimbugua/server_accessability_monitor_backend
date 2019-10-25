@@ -7,6 +7,7 @@ from .latency import calc_net_stats
 from .create_excel_file import write_into_file
 from .read_excel_file import read_file
 import uuid
+from datetime import timedelta, datetime
 
 
 class StatsList(generics.ListCreateAPIView):
@@ -23,6 +24,7 @@ class StatsList(generics.ListCreateAPIView):
             return Response("", status=status.HTTP_400_BAD_REQUEST)
 
         if calc_net_stats(packets, ip_address) is not None:
+
             packets_transmitted, packets_received, mini, average, maxi, stddev = calc_net_stats(
                 packets, ip_address)
         else:
@@ -46,8 +48,11 @@ class StatsList(generics.ListCreateAPIView):
             "average": average,
             "stddev": stddev,
         }
+
         file_unique_name = str(uuid.uuid4())
-        write_into_file(data, file_unique_name, connection_name)
+
+        write_into_file.apply_async(
+            [data, file_unique_name, connection_name], countdown=0, expires=20)
 
         file_path_serializer = FilePathSerializer(
             data={"connection_name": connection_name, "file_path": file_unique_name, "ip_address": ip_address})

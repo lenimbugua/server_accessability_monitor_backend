@@ -1,9 +1,14 @@
 import xlwt
 from xlwt import Workbook
 from django.conf import settings
+from celery import shared_task
 
 
+@shared_task
 def write_into_file(data, unique_name, connection_name):
+    """
+    creates an excel file
+    """
     file_path = settings.FILES_DIR
     workbook = xlwt.Workbook()
 
