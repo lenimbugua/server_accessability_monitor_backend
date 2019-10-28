@@ -1,34 +1,33 @@
 import subprocess
 import time
+from random import choice
+from create_excel_file import write_into_file
+
+NO_OF_PACKETS = ['5', '5', '7', '8', '8' '9', '10', '15']
+SLEEP_TIME = 30
 
 
 def calculate_next_ping_time(func):
 
-    # added arguments inside the inner1,
-    # if function takes any arguments,
-    # can be added like this.
     def inner1(*args, **kwargs):
-
-        remaining_duration = 60
+        print(kwargs)
+        remaining_duration = 3
         file_data = []
         while remaining_duration > 0:
-            # storing time before function execution
-            print("tick")
+
             starttime = time.time()
-            file_data.append(func(*args, **kwargs))
+            file_data.append(func(choice(NO_OF_PACKETS), *args))
+            # time.sleep(SLEEP_TIME)
             time_spent = time.time()-starttime
             remaining_duration = remaining_duration-time_spent
-
-            # storing time after function execution
-            end = time.time()
-
+        write_into_file(file_data, kwargs['connection_name'], kwargs['uuid'])
         return file_data
 
     return inner1
 
 
 @calculate_next_ping_time
-def calc_net_stats(packets, ip_address):
+def calc_net_stats(packets, ip_address, **kwargs):
 
     try:
         response = subprocess.check_output(
@@ -50,4 +49,4 @@ def calc_net_stats(packets, ip_address):
         response = None
 
 
-print(calc_net_stats('2', 'google.com'))
+print(calc_net_stats('google.com', connection_name="google", uuid="82783465jfjghjfg"))
