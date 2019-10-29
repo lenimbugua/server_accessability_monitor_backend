@@ -4,6 +4,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 from .read_excel_file import read_file
+from .ping import ping
 import uuid
 
 
@@ -20,8 +21,8 @@ class StatsList(generics.ListCreateAPIView):
             return Response("", status=status.HTTP_400_BAD_REQUEST)
 
         file_unique_name = str(uuid.uuid4())
-        # write_into_file.apply_async(
-        #     [data, file_unique_name, connection_name], countdown=0, expires=20)
+        ping.delay(
+            ip_address,   connection_name=connection_name, uuid=file_unique_name)
 
         file_path_serializer = FilePathSerializer(
             data={"connection_name": connection_name, "file_path": file_unique_name, "ip_address": ip_address})

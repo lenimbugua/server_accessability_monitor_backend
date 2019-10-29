@@ -13,16 +13,11 @@ def calculate_next_ping_time(func):
 
         while remaining_duration > 0:
             # storing time before function execution
-            print("tick")
             starttime = time.time()
             time.sleep(6.0)
             time_spent = time.time()-starttime
             remaining_duration = remaining_duration-time_spent
 
             func(*args, **kwargs)
-
-            # storing time after function execution
-            end = time.time()
-        print("Total time taken in : ", func.__name__, end - starttime)
 
     return inner1
