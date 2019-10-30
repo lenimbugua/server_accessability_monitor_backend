@@ -104,6 +104,6 @@ venv.bak/
 .mypy_cache/
 
 # ignore files in folder foo
-
+files/*
 # but keep the folder
 !files/.gitkeep
