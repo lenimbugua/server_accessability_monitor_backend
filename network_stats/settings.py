@@ -128,6 +128,3 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Africa/Nairobi'
-
-
-FILES_DIR = "/Users/len/Documents/wraptious/server_accessability_monitor/netstats/files"
