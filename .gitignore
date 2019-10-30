@@ -103,5 +103,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-#files directory
-files/
+# ignore files in folder foo
+files/*
+# but keep the folder
+!files/.keep

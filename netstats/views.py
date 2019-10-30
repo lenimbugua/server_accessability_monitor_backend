@@ -8,7 +8,7 @@ from .ping import ping
 import uuid
 
 
-class StatsList(generics.ListCreateAPIView):
+class Ping(generics.ListCreateAPIView):
     queryset = Stats.objects.all()
     serializer_class = StatsSerializer
 
@@ -30,11 +30,6 @@ class StatsList(generics.ListCreateAPIView):
             file_path_serializer.save()
             return Response(file_path_serializer.data, status=status.HTTP_201_CREATED)
         return Response(file_path_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class StatsDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Stats.objects.all()
-    serializer_class = StatsSerializer
 
 
 class FilePathList(generics.ListCreateAPIView):
