@@ -16,11 +16,11 @@ class Ping(generics.ListCreateAPIView):
         request_data = request.data
         connection_name = request_data['connection_name']
         ip_address = request_data['ip_address']
+        file_unique_name = str(uuid.uuid4())
 
         if (ip_address) == "":
             return Response("", status=status.HTTP_400_BAD_REQUEST)
 
-        file_unique_name = str(uuid.uuid4())
         ping.delay(
             ip_address,   connection_name=connection_name, uuid=file_unique_name)
 

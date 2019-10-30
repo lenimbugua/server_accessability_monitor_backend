@@ -1,13 +1,14 @@
 import xlwt
 from xlwt import Workbook
-from django.conf import settings
+from pathlib import Path
 
 
 def write_into_file(data, **kwargs):
     """
     creates an excel file
     """
-    file_path = settings.FILES_DIR
+    file_path = Path("files/")
+
     workbook = xlwt.Workbook()
 
     sheet = workbook.add_sheet(kwargs['connection_name'])

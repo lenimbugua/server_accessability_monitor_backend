@@ -11,11 +11,12 @@ PING_DURATION = 10
 
 
 def calculate_next_ping_time(func):
-    def inner1(*args, **kwargs):
-        remaining_duration = PING_DURATION
-        file_data = []
-        while remaining_duration > 0:
 
+    remaining_duration = PING_DURATION
+    file_data = []
+
+    def inner1(*args, **kwargs):
+        while remaining_duration > 0:
             starttime = time.time()
             file_data.append(func(choice(NO_OF_PACKETS), *args))
             time.sleep(SLEEP_TIME)

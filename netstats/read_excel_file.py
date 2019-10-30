@@ -1,21 +1,16 @@
 # Reading an excel file
 import xlrd
-from django.conf import settings
-from rest_framework.response import Response
-from rest_framework import status
-from .serializers import StatsSerializer
+from pathlib import Path
 
 
 def read_file(uuid):
     # Give the location of the file
-    file_path = settings.FILES_DIR
-    loc = ("{}/{}.xlsx".format(file_path, uuid))
+    loc = Path("files/{}.xlsx".format(uuid))
 
-    # To open Workbook
+    # Try to open Workbook
     try:
         wb = xlrd.open_workbook(loc)
         sheet = wb.sheet_by_index(0)
-
         file_data = []
 
         # populate file data into a 2d list
