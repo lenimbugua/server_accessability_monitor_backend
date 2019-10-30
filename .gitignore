@@ -105,5 +105,3 @@ venv.bak/
 
 # ignore files in folder foo
 files/*
-# but keep the folder
-!files/.keep
