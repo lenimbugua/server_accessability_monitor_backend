@@ -22,7 +22,6 @@ def write_into_file(data, **kwargs):
 
     for i in range(len(headers)):
         sheet.write(0, i, headers[i], style)
-    print(data)
     x = 0
     for row in data:
         y = 0

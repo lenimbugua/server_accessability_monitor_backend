@@ -3,7 +3,6 @@ import time
 from random import choice
 from .create_excel_file import write_into_file
 from celery import shared_task
-from warnings import warn
 
 
 NO_OF_PACKETS = ['2', '1', '2', '2', '1' '1', '1', '1']
@@ -15,7 +14,7 @@ def calculate_next_ping_time(func):
 
     def inner1(*args, **kwargs):
         remaining_duration = kwargs['duration']
-        warn("#######{}".format(remaining_duration))
+
         file_data = []
         while remaining_duration > 0:
             starttime = time.time()

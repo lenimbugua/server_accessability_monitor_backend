@@ -6,7 +6,6 @@ from rest_framework import status
 from .read_excel_file import read_file
 from .ping import ping
 import uuid
-from warnings import warn
 from .calculate_time import schedule_ping
 
 
